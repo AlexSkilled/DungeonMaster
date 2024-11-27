@@ -7,6 +7,7 @@ import com.dungeonmaster.LoadingScreen;
 import com.error.NoConnection;
 import com.error.NoLoginInfo;
 import com.error.UserUnauthorized;
+import com.serverconnection.Reconnect;
 import com.serverconnection.Server;
 import com.serverconnection.model.User;
 
@@ -42,6 +43,8 @@ public class DataSynchronizer implements Runnable {
             nextScreen = new Intent(loadingScreen, MainMenu.class);
             firstAnim = R.anim.slide_in_right;
             secondAnim = R.anim.slide_out_left;
+            Thread subThread = new Thread(new Reconnect(loadingScreen));
+            subThread.start();
         }
 
         loadingScreen.startActivity(nextScreen);
